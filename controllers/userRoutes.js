@@ -16,10 +16,13 @@ router.get("/", (req, res) => {
       res.status(500).json({ msg: "an error occured", err });
     });
 });
+
 router.get("/logout",(req,res)=>{
+  console.log("user is logged out")
   req.session.destroy();
   res.redirect("/")
 })
+
 //find one
 router.get("/:id", (req, res) => {
   User.findByPk(req.params.id,{})

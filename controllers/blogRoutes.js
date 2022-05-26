@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {User,Blog} = require("../models");
+const withAuth = require('../utils/auth')
 
 
 //find all
@@ -33,8 +34,7 @@ router.post("/", (req, res) => {
     }
   Blog.create({
     title:req.body.title,
-    body:req.body.body,
-    UserId:req.session.user.id
+    content:req.body.content,
   })
     .then(newBlog => {
       res.json(newBlog);

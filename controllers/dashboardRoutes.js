@@ -24,11 +24,11 @@ router.get("/dashboard",(req,res)=>{
     if(!req.session.user){
         return res.redirect("/login")
     }
-    User.findByPk(req.session.user.id,{
-        include:[Blog]
+    Blog.findAll({where: {user_id:req.session.user.id }},
+        {
     }).then(userData=>{
         console.log(userData);
-        const hbsData = userData.get({plain:true})
+        const hbsData = userData.map((user)=>user.get({plain:true}))
         console.log("=======")
         console.log(hbsData);
         hbsData.loggedIn = req.session.user?true:false

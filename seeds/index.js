@@ -1,7 +1,10 @@
 const sequelize = require("../config/connection")
 const {User,Blog} = require("../models")
 
-const users = [
+const seed = async () => {
+    await sequelize.sync({force:true})
+    await User.bulkCreate(
+    [
     {
         username:"Nicole",
         password:"password"
@@ -14,37 +17,36 @@ const users = [
         username:"Nicole3",
         password:"password2"
     }
-]
+])
 
-const blogs = [
-    {
+await Blog.bulkCreate (
+    [
+        {
         title:"Tech Stuff",
-        body:"Welcome to my blog, i'm going to talk to you about tech stuff",
-        UserId:1
+        content:"Welcome to my blog, i'm going to talk to you about tech stuff",
     },
     {
         title:"Variable",
-        body:"This is a variable",
-        UserId:1
+        content:"This is a variable",
     },
     {
         title:"Computer stuff",
-        body:"This is cmputer stuff",
-        UserId:2
+        content:"This is cmputer stuff",
     }
-]
 
-const createBlog = async ()=>{
-    try{
-        await sequelize.sync({force:true})
-        await User.bulkCreate(users, {
-            individualHooks:true
-        });
-        await Blog.bulkCreate(blogs);
-        process.exit(0);
-    } catch(err){
-        console.log(err)
-    }
-}
 
-createBlog()
+// const createBlog = async ()=>{
+//     try{
+//         await sequelize.sync({force:true})
+//         await User.bulkCreate(users, {
+//             individualHooks:true
+//         });
+//         await Blog.bulkCreate(blogs);
+//         process.exit(0);
+//     } catch(err){
+//         console.log(err)
+//     }
+    ])
+    process.exit(0)}
+
+seed()

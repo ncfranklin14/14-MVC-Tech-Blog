@@ -1,21 +1,21 @@
-console.log("hello")
 document.querySelector("#newBlog").addEventListener("submit",e=>{
-    e.preventDefault()
-    const blogObj = {
+    e.preventDefault();
+    const userObj = {
         title:document.querySelector("#title").value,
-        body:document.querySelector("#body").value,
+        content:document.querySelector("#body").value,
     }
+    console.log(userObj)
     fetch("/api/blogs",{
         method:"POST",
-        body:JSON.stringify(blogObj),
+        body:JSON.stringify(userObj),
         headers:{
             "Content-Type":"application/json"
         }
     }).then(res=>{
         if(res.ok){
-           location.reload()
+            location.href="/dashboard"
         } else {
-            alert("error")
+            alert("trumpet sound")
         }
     })
 })
