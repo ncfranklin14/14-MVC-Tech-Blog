@@ -37,6 +37,7 @@ document.querySelector("#signup").addEventListener("submit",e=>{
     }).then(res=>{
         if(res.ok){
             console.log("signed up!")
+            document.location.replace("/");
         } else {
             alert("error")
         }

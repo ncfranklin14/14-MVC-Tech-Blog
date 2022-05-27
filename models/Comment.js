@@ -5,9 +5,19 @@ class Comment extends Model {}
 
 Comment.init(
     {
-      body: {
+      comment: {
         type: DataTypes.TEXT,
         allowNull: false,
+      },
+      blog_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+  
+      }, 
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+  
       },
     },
     {

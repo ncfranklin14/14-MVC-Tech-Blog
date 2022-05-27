@@ -3,7 +3,12 @@ const router = express.Router();
 const {User,Blog} = require('../models');
 
 router.get("/",(req,res)=>{
-    Blog.findAll().then(blogs=>{
+    Blog.findAll(
+        {include: [ {
+            model: User,
+            attributes: ["username"],
+        }]}
+    ).then(blogs=>{
         console.log(blogs)
         const hbsBlogs = blogs.map(blog=>blog.get({plain:true}))
         console.log("==========")
@@ -27,12 +32,12 @@ router.get("/dashboard",(req,res)=>{
     Blog.findAll({where: {user_id:req.session.user.id }},
         {
     }).then(userData=>{
-        console.log(userData);
-        const hbsData = userData.map((user)=>user.get({plain:true}))
+        // console.log(userData);
+        const blogs = userData.map((user)=>user.get({plain:true}))
         console.log("=======")
-        console.log(hbsData);
-        hbsData.loggedIn = req.session.user?true:false
-        res.render("dashboard",hbsData)
+        console.log(blogs);
+        // blogs.loggedIn = req.session.user?true:false
+        res.render("dashboard",{blogs})
     })
 })
 
