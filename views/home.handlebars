@@ -2,6 +2,7 @@
 {{#each blogs}}
     <h3>{{title}}</h3>
     <p>{{content}}</p>
+    <p>Created by: {{user.username}}</p>
     <hr>
     {{>comment}} 
 {{/each}}

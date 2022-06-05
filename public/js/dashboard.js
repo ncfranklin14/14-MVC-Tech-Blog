@@ -19,3 +19,20 @@ document.querySelector("#newBlog").addEventListener("submit",e=>{
         }
     })
 })
+const delButtonHandler = async (event) => {
+    if (event.target.classList.contains("delete")) {
+      const id = event.target.value;
+  
+      console.log("============================", event.target);
+      const response = await fetch(`/api/blogs/${id}`, {
+        method: "DELETE",
+      });
+  
+      if (response.ok) {
+        document.location.replace("/dashboard");
+      } else {
+        alert("Failed to delete project");
+      }
+    }
+  };
+  document.querySelector("#deleteBtn").addEventListener("click", delButtonHandler);
